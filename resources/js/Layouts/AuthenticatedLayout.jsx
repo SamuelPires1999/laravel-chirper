@@ -99,7 +99,7 @@ export default function Authenticated({ user, header, children }) {
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('chirps.index')} active={route().current('chirps.index')}>
-                            Dashboard
+                            Chirps
                         </ResponsiveNavLink>
                     </div>
 
