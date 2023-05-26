@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,13 +27,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
+// DEFAULT CRUD OPERATIONS FOR CHIRPS
 Route::resource('chirps', ChirpController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
+    ->only(['index', 'store', 'update', 'destroy', 'likeChirp'])
     ->middleware(['auth', 'verified']);
+
+Route::post('chirps/{chirp}/like', [LikeController::class, 'like'])
+    ->middleware(['auth', 'verified'])
+    ->name('chirps.likeChirp');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

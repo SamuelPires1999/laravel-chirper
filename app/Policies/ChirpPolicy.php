@@ -63,4 +63,9 @@ class ChirpPolicy
     {
         //
     }
+
+    public function likeChirp(User $user, Chirp $chirp): bool
+    {
+        return !$chirp->user()->is($user);
+    }
 }

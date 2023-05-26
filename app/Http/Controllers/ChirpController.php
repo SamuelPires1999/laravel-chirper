@@ -88,4 +88,11 @@ class ChirpController extends Controller
 
         return redirect(route('chirps.index'));
     }
+
+    public function likeChirp(Request $request ,Chirp $chirp): RedirectResponse
+    {
+        $this->authorize('likeChirp', $chirp);
+
+
+    }
 }

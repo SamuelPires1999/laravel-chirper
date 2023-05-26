@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { useForm, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 
 
 dayjs.extend(relativeTime);
@@ -37,7 +37,7 @@ export default function Chirp({ chirp }) {
                         <small className="ml-2 text-sm text-gray-600 dark:text-white">{dayjs(chirp.created_at).fromNow()}</small>
                         { chirp.created_at !== chirp.updated_at && <small className="text-sm text-gray-600"> &middot; edited</small>}
                     </div>
-                    {chirp.user.id === auth.user.id &&
+                    {chirp.user.id === auth.user.id ?
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <button>
@@ -55,6 +55,8 @@ export default function Chirp({ chirp }) {
                                 </Dropdown.Link>
                             </Dropdown.Content>
                         </Dropdown>
+                        :
+                        <Link href={route('chirps.likeChirp', chirp.id)}  method="post">Like Chirp</Link>
                     }
                 </div>
                 {editing
